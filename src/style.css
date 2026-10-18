@@ -1,0 +1,40 @@
+/* Simple styles for the world map app */
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  margin: 0;
+  background: #f6fbff;
+  color: #111;
+}
+#app {
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+#map {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 6px;
+  overflow: hidden;
+}
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: linear-gradient(#e6f7ff, #f8fcff);
+}
+.country {
+  fill: #cfcfcf;
+  stroke: #666;
+  stroke-width: 0.25px;
+  cursor: pointer;
+  transition: fill 100ms ease;
+}
+.country:hover {
+  fill: #9fb0c0;
+}
+.country.selected {
+  fill: #ff8c3d;
+}
+#info {
+  margin-top: 12px;
+  font-weight: 600;
+}
