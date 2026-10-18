@@ -1,4 +1,4 @@
-/* Dark theme styles for the world map app */
+/* Dark theme styles for the world map app (fullscreen) */
 :root{
   --bg:#0b1220;
   --panel:#0f1724;
@@ -6,7 +6,8 @@
   --accent:#ff8c3d;
   --country:#1f2a36;
   --country-hover:#3a5062;
-  --stroke:#11161f;
+  --stroke:#0b1016;
+  --toolbar-height:72px;
 }
 
 html,body{
@@ -17,24 +18,32 @@ body {
   margin: 0;
   background: linear-gradient(180deg,var(--bg) 0%, #071019 100%);
   color: #e6eef8;
+  height: 100vh;
+  overflow: hidden; /* make the app behave like a fullscreen canvas */
 }
 #app {
-  padding: 18px;
-  max-width: 1200px;
-  margin: 0 auto;
+  position:relative;
+  height:100%;
+  width:100%;
 }
 h1{
-  margin: 0 0 12px 0;
-  font-size: 18px;
+  position: absolute;
+  top: 12px;
+  left: 18px;
+  margin: 0;
+  font-size: 16px;
   font-weight: 700;
   color: #eaf3ff;
+  z-index: 30;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
 }
 #map {
-  box-shadow: 0 6px 30px rgba(0,0,0,0.6);
-  border-radius: 8px;
+  position:absolute;
+  inset: 0; /* fill the whole screen */
+  box-shadow: none;
+  border-radius: 0;
   overflow: hidden;
   background: linear-gradient(180deg,#061019 0%, #071219 100%);
-  height: 600px; /* explicit height so the SVG scales visibly */
 }
 svg {
   width: 100%;
@@ -55,14 +64,69 @@ svg {
   fill: var(--accent) !important;
 }
 #info {
-  margin-top: 12px;
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  margin-top: 0;
   font-weight: 600;
   color: var(--muted);
   background: rgba(255,255,255,0.02);
-  padding: 10px 12px;
+  padding: 8px 12px;
   border-radius: 8px;
-  display: inline-block;
+  z-index: 30;
 }
-.loading{
-  color: var(--muted);
+
+/* Toolbar (auto-hide near bottom) */
+#toolbar{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--toolbar-height);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events: none; /* allow clicks to pass when hidden */
+  transition: transform 220ms ease, opacity 220ms ease;
+  z-index: 40;
+}
+#toolbar .toolbar-inner{
+  pointer-events: auto;
+  background: linear-gradient(180deg, rgba(10,16,24,0.9), rgba(6,10,14,0.7));
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 10px 16px;
+  border-radius: 8px 8px 0 0;
+  display:flex;
+  gap: 12px;
+  align-items:center;
+  box-shadow: 0 -6px 20px rgba(0,0,0,0.6);
+}
+#toolbar label{
+  color: #dbe9ff;
+  font-weight: 600;
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+#toolbar input[type="checkbox"]{
+  width: 16px;
+  height: 16px;
+}
+#toolbar .spacer{flex:1}
+#toolbar .hint{color:var(--muted); font-weight:500; font-size:12px}
+
+/* hidden/visible states */
+.toolbar-hidden{transform: translateY(100%); opacity: 0;}
+.toolbar-visible{transform: translateY(0%); opacity: 1;}
+
+/* Labels & flags styling in SVG */
+.country-label{
+  fill: #eaf3ff;
+  font-size: 11px;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  pointer-events: none;
+}
+.flag-image{
+  pointer-events: none;
 }

@@ -11,6 +11,18 @@
     <h1>World map — select a country</h1>
     <div id="map"></div>
     <div id="info">Click a country to select it.</div>
+
+    <!-- Toolbar that appears when mouse is near bottom -->
+    <div id="toolbar" class="toolbar-hidden">
+      <div class="toolbar-inner">
+        <label><input type="checkbox" id="toggle-labels" /> Add country labels</label>
+        <label><input type="checkbox" id="toggle-flags" /> Add country flags</label>
+        <label><input type="checkbox" id="toggle-flagmap" /> Enable flag map</label>
+        <div class="spacer"></div>
+        <div class="hint">Hover near bottom to show toolbar</div>
+      </div>
+    </div>
+
   </div>
 
   <!-- D3 for drawing and topo/geo utilities -->
